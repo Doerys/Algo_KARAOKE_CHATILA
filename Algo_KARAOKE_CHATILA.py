@@ -97,12 +97,65 @@ class Karaoke:
     
     def showSong(self, index):
         print("Le nom de cette chanson est", self.__chansons[index])
+        return self.__chansons[index]
+
+    def showBestScoreSong(self, indexSong):
+
+        bestScore = 0
+        for i in range (0, len(self.__joueurs)):
+            scoreJoueur = self.__joueurs[i].getScoreChanson(indexSong)
+            if (scoreJoueur > bestScore):
+                bestScore = scoreJoueur
+
+        return bestScore
+    
+    def showBestPlayer(self):
+
+        bestScore = 0
+        
+        for i in range (0, len(self.__joueurs)):
+            scoreJoueur = self.__joueurs[i].scoreTotal()
+            if (scoreJoueur > bestScore):
+                bestPlayer = self.__joueurs[i].getPseudo()
+
+        return bestPlayer
+    
+    def showBestMoyenne(self):
+
+        bestScore = 0
+        
+        for i in range (0, len(self.__joueurs)):
+            scoreJoueur = self.__joueurs[i].moyenneScore()
+            if (scoreJoueur > bestScore):
+                bestPlayer = self.__joueurs[i].getPseudo()
+
+        return bestPlayer
+
+"""
 
     def addPlayer(self, newPlayer):
+        self.__joueurs.append(newPlayer)
+        return
+
+    def removePlayer(self):
+        if (len(self.__joueurs) > 1):
+             #here, code to removePlayer
+        return
+
+    def showBestScoreGlobal(self):
+
+        bestScore = 0
         
-    
-    def showBestScoreSong(self):
-        return 
+        for i in range (0, len(chansons)):
+
+        for i in range (0, len(self.__joueurs) + 1):
+            scoreJoueur = self.__joueurs[i].scoreTotal()
+            if (scoreJoueur > bestScore):
+                bestPlayer = self.__joueurs.getPseudo()
+
+        return bestPlayer
+
+"""
 
 
 class Player:
@@ -162,32 +215,40 @@ nomsChansons = ["A", "B", "C", "D", "E"]
 
 joueurs = {}
 
-joueurs[1] = Player("John", scoreChansons)
+joueurs[0] = Player("John", scoreChansons)
+joueurs[1] = Player("Mathis", scoreChansons)
 
 karaoke = Karaoke(nomsChansons, joueurs)
 
 
+print("Le joueur 1 est", joueurs[0].getPseudo())
+print("Le joueur 2 est", joueurs[1].getPseudo())
+print("Le score de", joueurs[0].getPseudo(), "pour la chanson 1 est", joueurs[0].getScoreChanson(0))
+
+joueurs[1].changeScore(50,0)
+
+print("Le score de", joueurs[0].getPseudo(), "pour la chanson 1 est", joueurs[0].getScoreChanson(0))
+
+joueurs[0].changeScore(50, 1)
+joueurs[0].changeScore(60, 2)
+joueurs[0].changeScore(60, 3)
+joueurs[0].changeScore(60, 4)
+
+joueurs[1].changeScore(70, 1)
+joueurs[1].changeScore(70, 1)
+joueurs[1].changeScore(80, 2)
+joueurs[1].changeScore(80, 3)
+joueurs[1].changeScore(99, 4)
+
+print("Le total des scores est de", joueurs[0].scoreTotal(), "et la moyenne est de", joueurs[0].moyenneScore())
+
+joueurs[0].showBestChanson()
+joueurs[0].showWorstChanson()
+
+nomChanson = karaoke.showSong(3)
+
+print("Le meilleur score pour la chanson", nomChanson, "est", karaoke.showBestScoreSong(3))
 
 
-
-
-
-print("Le joueur est", joueurs[1].getPseudo())
-print("Le score de", joueurs[1].getPseudo(), "pour la chanson 1 est", joueurs[1].getScoreChanson(0))
-
-joueurs[1].changeScore(1,0)
-
-print("Le score de", joueurs[1].getPseudo(), "pour la chanson 1 est", joueurs[1].getScoreChanson(0))
-
-joueurs[1].changeScore(1, 1)
-joueurs[1].changeScore(0, 2)
-joueurs[1].changeScore(3, 3)
-joueurs[1].changeScore(4, 4)
-
-print("Le total des scores est de", joueurs[1].scoreTotal(), "et la moyenne est de", joueurs[1].moyenneScore())
-
-joueurs[1].showBestChanson()
-joueurs[1].showWorstChanson()
-
-karaoke.showSong(3)
-
+print("Le meilleur total est détenu par", karaoke.showBestPlayer())
+print("La meilleure moyenne est détenue par", karaoke.showBestMoyenne())
